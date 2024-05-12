@@ -61,13 +61,43 @@ export class ApiService {
     }
 
     async getAllProducts(search?: String) {
-      if (!search) {
-        search = '';
-      }
+        if (!search) {
+            search = '';
+        }
         try {
-            return this.axiosService.request('GET', `/api/v1/product/get_products?search=${search}`, {}).then(response => {
-                return response.data;
-            });
+            return this.axiosService
+                .request(
+                    'GET',
+                    `/api/v1/product/get_products?search=${search}`,
+                    {}
+                )
+                .then(response => {
+                    return response.data;
+                });
+        } catch (err) {
+            return Promise.reject(err);
+        }
+    }
+
+    async deleteProduct(id: number) {
+        try {
+            return this.axiosService
+                .request('DELETE', `/api/v1/product/delete_product/${id}`, {})
+                .then(response => {
+                    return response.status;
+                });
+        } catch (err) {
+            return Promise.reject(err);
+        }
+    }
+
+    async updateProduct(id: number, product: any) {
+        try {
+            return this.axiosService
+                .request('PUT', `/api/v1/product/update_product/${id}`, product)
+                .then(response => {
+                    return response.status;
+                });
         } catch (err) {
             return Promise.reject(err);
         }
