@@ -1,0 +1,24 @@
+<mat-drawer-container class="h-[100%]" >
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <div class="flex-col flex gap-8 p-4 justify-start items-start  h-full w-full">
+    <button>
+      Profile
+    </button>
+    <button>
+      Products
+    </button>
+    <button>
+      POS
+    </button>
+    <button>
+      Sales
+    </button>
+    </div>
+  </mat-drawer>
+  <div class="flex justify-start items-start bg-pink-300 h-screen">
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+</mat-drawer-container>
+

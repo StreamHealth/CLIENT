@@ -51,12 +51,24 @@ export class ApiService {
     async getProfile() {
         try {
             return this.axiosService
-                .request('GET', '/api/v1/user', {})
+                .request('GET', '/api/v1/user/get_user', {})
                 .then(response => {
                     return response;
                 });
         } catch (err) {
             return Promise.reject(err);
         }
+    }
+
+    async getAllProducts() {
+      try {
+        return this.axiosService
+          .request("GET", "/api/v1/product/get_products", {})
+          .then((response) => {
+            return response.data;
+          })
+      } catch (err) {
+        return Promise.reject(err);
+      }
     }
 }

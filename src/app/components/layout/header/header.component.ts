@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { DashboardBtnComponent } from '../buttons/dashboard-btn/dashboard-btn.component';
+import { DashboardBtnComponent } from '../../buttons/dashboard-btn/dashboard-btn.component';
 import { Router, RouterLink } from '@angular/router';
 import { NgForOf, NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
-import { ApiService } from '../../services/api.service';
-import { AxiosService } from '../../services/axios.service';
+import { ApiService } from '../../../services/api.service';
+import { AxiosService } from '../../../services/axios.service';
 
 @Component({
     selector: 'app-header',
