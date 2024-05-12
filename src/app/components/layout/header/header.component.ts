@@ -5,11 +5,19 @@ import { NgForOf, NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { ApiService } from '../../../services/api.service';
 import { AxiosService } from '../../../services/axios.service';
+import { ProfileBtnComponent } from '../../buttons/profile-btn/profile-btn.component';
 
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [DashboardBtnComponent, RouterLink, NgForOf, NgIf, MatButton],
+    imports: [
+        DashboardBtnComponent,
+        RouterLink,
+        NgForOf,
+        NgIf,
+        MatButton,
+        ProfileBtnComponent,
+    ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
 })
