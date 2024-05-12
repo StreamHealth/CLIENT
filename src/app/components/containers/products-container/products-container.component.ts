@@ -15,26 +15,28 @@ import {
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-products-container',
     standalone: true,
-    imports: [
-        MatTable,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatCellDef,
-        MatHeaderCell,
-        MatCell,
-        MatHeaderRow,
-        MatRow,
-        MatRowDef,
-        MatHeaderRowDef,
-        MatButton,
-        MatFormField,
-        MatInput,
-        MatLabel,
-    ],
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef,
+    MatButton,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    NgIf,
+  ],
     templateUrl: './products-container.component.html',
     styleUrl: './products-container.component.css',
 })

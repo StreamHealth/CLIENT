@@ -11,6 +11,7 @@
                 (keyup)="applyFilter($event)" />
         </div>
         <table
+          *ngIf = "dataSource.length > 0"
             mat-table
             [dataSource]="dataSource"
             class="mat-elevation-z3 h-[30rem]">
@@ -67,5 +68,8 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+      <div *ngIf="dataSource.length === 0" class="flex h-[30rem] w-full items-center justify-center bg-white mat-elevation-z4">
+        <h2 class="text-2xl">No products found!</h2>
+      </div>
     </div>
 </div>
