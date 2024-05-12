@@ -1,4 +1,9 @@
 <main class="flex h-[89vh] w-full">
     <app-sidebar />
-    <div></div>
+    <div>
+        <app-profile-container *ngIf="selectedButton === 'profile'" />
+        <app-pos-container *ngIf="selectedButton === 'pos'" />
+        <app-products-container *ngIf="selectedButton === 'products'" />
+        <app-sales-container *ngIf="selectedButton === 'sales'" />
+    </div>
 </main>

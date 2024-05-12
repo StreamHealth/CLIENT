@@ -23,18 +23,16 @@ export class AxiosService {
     setAuthToken(token: string | null) {
         if (token !== null) {
             window.localStorage.setItem('authToken', token);
-            window.localStorage.setItem('tokenDate', new Date().toDateString());
             this.loggedIn.next(true);
         } else {
             window.localStorage.removeItem('authToken');
-            window.localStorage.removeItem('tokenDate');
             this.loggedIn.next(false);
         }
     }
 
     logout() {
         return new Promise<void>(resolve => {
-            window.localStorage.removeItem('authToken');
+            window.localStorage.clear();
             this.loggedIn.next(false);
             resolve();
         });

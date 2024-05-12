@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AxiosService } from '../../services/axios.service';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
@@ -6,6 +6,11 @@ import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
 import { SidebarComponent } from '../../components/layout/sidebar/sidebar.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { ProfileContainerComponent } from '../../components/containers/profile-container/profile-container.component';
+import { PosContainerComponent } from '../../components/containers/pos-container/pos-container.component';
+import { ProductsContainerComponent } from '../../components/containers/products-container/products-container.component';
+import { SalesContainerComponent } from '../../components/containers/sales-container/sales-container.component';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard',
@@ -16,18 +21,47 @@ import { MatIcon } from '@angular/material/icon';
         SidebarComponent,
         MatIconButton,
         MatIcon,
+        ProfileContainerComponent,
+        PosContainerComponent,
+        ProductsContainerComponent,
+        SalesContainerComponent,
+        NgIf,
     ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, AfterViewInit {
+    @ViewChild(SidebarComponent) sidebarComponent!: SidebarComponent;
+    selectedButton: string;
+
     constructor(
         private axiosService: AxiosService,
         private routerService: Router,
         private apiService: ApiService
-    ) {}
+    ) {
+        this.selectedButton = '';
+    }
 
-    ngOnInit() {
+    getSelectedView() {
+        this.sidebarComponent.profileClick.subscribe(() => {
+            this.selectedButton = 'profile';
+            localStorage.setItem('selectedView', 'profile');
+        });
+        this.sidebarComponent.productsClick.subscribe(() => {
+            this.selectedButton = 'products';
+            localStorage.setItem('selectedView', 'products');
+        });
+        this.sidebarComponent.posClick.subscribe(() => {
+            this.selectedButton = 'pos';
+            localStorage.setItem('selectedView', 'pos');
+        });
+        this.sidebarComponent.salesClick.subscribe(() => {
+            this.selectedButton = 'sales';
+            localStorage.setItem('selectedView', 'sales');
+        });
+    }
+
+    getAuthProfile() {
         if (this.axiosService.getAuthToken() === null) {
             this.routerService.navigate(['/auth']);
         }
@@ -41,5 +75,15 @@ export class DashboardComponent {
         } catch (err) {
             console.log('Error: ', err);
         }
+    }
+
+    ngOnInit() {
+        const savedView = localStorage.getItem('selectedView');
+        this.selectedButton = savedView ? savedView : 'profile';
+        this.getAuthProfile();
+    }
+
+    ngAfterViewInit() {
+        this.getSelectedView();
     }
 }
