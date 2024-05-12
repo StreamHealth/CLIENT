@@ -10,13 +10,13 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
     selector: 'app-dashboard',
     standalone: true,
-  imports: [
-    MatDrawerContainer,
-    MatDrawer,
-    SidebarComponent,
-    MatIconButton,
-    MatIcon,
-  ],
+    imports: [
+        MatDrawerContainer,
+        MatDrawer,
+        SidebarComponent,
+        MatIconButton,
+        MatIcon,
+    ],
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.css',
 })
