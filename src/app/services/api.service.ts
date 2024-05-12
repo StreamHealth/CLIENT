@@ -60,12 +60,12 @@ export class ApiService {
         }
     }
 
-    async getAllProducts(query?: String) {
-      if (!query) {
-        query = '';
+    async getAllProducts(search?: String) {
+      if (!search) {
+        search = '';
       }
         try {
-            return this.axiosService.request('GET', `/api/v1/product/get_products?query=${query}`, {}).then(response => {
+            return this.axiosService.request('GET', `/api/v1/product/get_products?search=${search}`, {}).then(response => {
                 return response.data;
             });
         } catch (err) {
