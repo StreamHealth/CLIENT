@@ -1,1 +1,12 @@
-<p>message-dialog works!</p>
+<div mat-dialog-content >
+  <div class="flex flex-col justify-center items-center px-5 w-full h-full gap-4">
+    <p [ngClass]="{'success': status === 'success', 'error': status === 'error'}">{{ message }}</p>
+    <div class="icon-container" [ngClass]="{'success': status === 'success', 'error': status === 'error'}">
+      <mat-icon *ngIf="status === 'success'" [ngStyle]="{'color':'white'}">check</mat-icon>
+      <mat-icon *ngIf="status === 'error'" [ngStyle]="{'color':'white'}">error</mat-icon>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+</div>

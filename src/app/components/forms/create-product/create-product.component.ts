@@ -7,6 +7,8 @@ import { MatInput } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import {  integerOnlyValidator, decimalValidator } from '../../../../custom-validators';
 import { ApiService } from '../../../services/api.service';
+import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-create-product',
@@ -18,7 +20,8 @@ import { ApiService } from '../../../services/api.service';
     ReactiveFormsModule,
     MatFormField,
     MatInput,
-    MatLabel
+    MatLabel,
+    MatButton,
   ],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css'
@@ -53,12 +56,21 @@ export class CreateProductComponent implements OnInit {
       productData.productPrice = parseFloat(productData.productPrice);
       productData.productStock = parseInt(productData.productStock);
 
-      this.apiService.createProduct(productData).then(() => {
+      this.apiService.createProduct(productData).then((response) => {
         this.productForm.reset();
+        let status = (response === 200 || response === 201) ? 'success' : 'error';
         this.dialog.closeAll();
+        this.dialog.open(MessageDialogComponent, {
+          data: { message: 'Product created successfully', status: status }
+        });
+      }).catch((error) => {
+        this.dialog.open(MessageDialogComponent, {
+          data: { message: 'Error creating product: ' + error.message, status: 'error' }
+        });
       });
     }
   }
+
   getErrorMessage(controlName: string) {
   let control = this.productForm.get(controlName);
 
