@@ -11,7 +11,6 @@ import { PosContainerComponent } from '../../components/containers/pos-container
 import { ProductsContainerComponent } from '../../components/containers/products-container/products-container.component';
 import { SalesContainerComponent } from '../../components/containers/sales-container/sales-container.component';
 import { NgIf } from '@angular/common';
-import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-dashboard',
@@ -38,7 +37,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     constructor(
         private axiosService: AxiosService,
         private routerService: Router,
-        private titleService: Title
     ) {
         this.selectedButton = '';
     }
@@ -69,7 +67,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        this.titleService.setTitle('Stream Health | Dashboard');
         const savedView = localStorage.getItem('selectedView');
         this.selectedButton = savedView ? savedView : 'profile';
         this.getAuthProfile();
