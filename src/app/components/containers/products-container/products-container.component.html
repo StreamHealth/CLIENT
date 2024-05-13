@@ -65,9 +65,7 @@
             <ng-container matColumnDef="updateAction">
                 <th mat-header-cell *matHeaderCellDef>Update</th>
                 <td mat-cell *matCellDef="let element">
-                    <button
-                        mat-button
-                        (click)="updateProduct(element.productId)">
+                    <button mat-button (click)="updateProduct(element)">
                         <span class="text-pink-400">Update</span>
                     </button>
                 </td>

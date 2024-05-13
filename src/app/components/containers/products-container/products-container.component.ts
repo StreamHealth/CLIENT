@@ -20,6 +20,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../../dialogs/delete-confirmation/delete-confirmation.component';
 import { CreateProductComponent } from '../../buttons/create-product/create-product.component';
 import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
+import { Product } from '../../../models/product';
+import { UpdateProductComponent } from '../../forms/update-product/update-product.component';
 
 @Component({
     selector: 'app-products-container',
@@ -96,8 +98,23 @@ export class ProductsContainerComponent {
         }
     }
 
-    updateProduct(id: number) {
-        console.log(id);
+    updateProduct(product: Product) {
+        const dialogRef = this.dialog.open(UpdateProductComponent, {
+            data: product,
+            width: '500px',
+        });
+
+        dialogRef.componentInstance.productUpdate.subscribe(() => {
+            this.page = 1;
+            this.fetchProducts('', this.page);
+        });
+
+        dialogRef.afterClosed().subscribe(response => {
+            if (response) {
+                this.page = 1;
+                this.fetchProducts('', this.page);
+            }
+        });
     }
 
     deleteProduct(id: number, name: string) {
