@@ -5,6 +5,8 @@ import { NgIf } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-register',
@@ -27,7 +29,8 @@ export class RegisterComponent implements User {
 
     constructor(
         private routerService: Router,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private dialog: MatDialog
     ) {
         this.name = '';
         this.password = '';
@@ -42,11 +45,28 @@ export class RegisterComponent implements User {
                 .register(this.username, this.name, this.password)
                 .then(status => {
                     if (status === 201) {
-                        this.routerService.navigate(['/dashboard']);
+                        const dialogRef = this.dialog.open(
+                            MessageDialogComponent,
+                            {
+                                data: {
+                                    message: 'Registered Successfully!',
+                                    status: 'success',
+                                },
+                            }
+                        );
+
+                        dialogRef.afterClosed().subscribe(() => {
+                            this.routerService.navigate(['/dashboard']);
+                        });
                     }
                 })
                 .catch(err => {
-                    console.log('Error: ', err);
+                    this.dialog.open(MessageDialogComponent, {
+                        data: {
+                            message: 'Error: ' + err.message,
+                            status: 'error',
+                        },
+                    });
                 });
         } else {
             console.log('Form is invalid');

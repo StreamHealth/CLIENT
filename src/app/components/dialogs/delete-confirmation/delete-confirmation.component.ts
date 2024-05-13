@@ -8,7 +8,6 @@ import {
     MatDialogTitle,
 } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
-import { data } from 'autoprefixer';
 
 export interface DialogData {
     name: string;

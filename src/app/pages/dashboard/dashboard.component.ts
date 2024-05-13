@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     constructor(
         private axiosService: AxiosService,
-        private routerService: Router,
+        private routerService: Router
     ) {
         this.selectedButton = '';
     }

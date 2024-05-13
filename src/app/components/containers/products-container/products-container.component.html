@@ -1,7 +1,7 @@
 <div class="flex h-full w-full items-center justify-center">
     <div class="flex w-[100rem] flex-col gap-4">
         <div class="flex w-full items-center justify-between gap-4">
-          <app-create-product />
+            <app-create-product />
             <div class="w-full">
                 <label for="search"></label>
                 <input
@@ -17,14 +17,14 @@
                     mat-flat-button
                     color="primary"
                     (click)="previousPage()"
-                    *ngIf="page > 1">
+                    [disabled]="page === 1">
                     Previous
                 </button>
                 <button
                     mat-flat-button
                     color="primary"
                     (click)="nextPage()"
-                    *ngIf="!isLastPage">
+                    [disabled]="isLastPage">
                     Next
                 </button>
             </div>

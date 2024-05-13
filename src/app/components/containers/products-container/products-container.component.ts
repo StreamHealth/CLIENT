@@ -19,28 +19,29 @@ import { NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../../dialogs/delete-confirmation/delete-confirmation.component';
 import { CreateProductComponent } from '../../buttons/create-product/create-product.component';
+import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
 
 @Component({
     selector: 'app-products-container',
     standalone: true,
-  imports: [
-    MatTable,
-    MatColumnDef,
-    MatHeaderCellDef,
-    MatCellDef,
-    MatHeaderCell,
-    MatCell,
-    MatHeaderRow,
-    MatRow,
-    MatRowDef,
-    MatHeaderRowDef,
-    MatButton,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    NgIf,
-    CreateProductComponent,
-  ],
+    imports: [
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatCellDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatRowDef,
+        MatHeaderRowDef,
+        MatButton,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        NgIf,
+        CreateProductComponent,
+    ],
     templateUrl: './products-container.component.html',
     styleUrl: './products-container.component.css',
 })
@@ -105,12 +106,29 @@ export class ProductsContainerComponent {
             data: { name: 'Product ' + name },
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.apiService.deleteProduct(id).then(() => {
-                    this.page = 1;
-                    this.fetchProducts('', this.page);
-                });
+        dialogRef.afterClosed().subscribe(response => {
+            if (response) {
+                this.apiService
+                    .deleteProduct(id)
+                    .then(() => {
+                        this.page = 1;
+                        this.fetchProducts('', this.page);
+                        this.dialog.open(MessageDialogComponent, {
+                            data: {
+                                message: 'Product deleted successfully',
+                                status: 'success',
+                            },
+                        });
+                    })
+                    .catch(err => {
+                        this.dialog.open(MessageDialogComponent, {
+                            data: {
+                                message:
+                                    'Error deleting product: ' + err.message,
+                                status: 'error',
+                            },
+                        });
+                    });
             }
         });
     }

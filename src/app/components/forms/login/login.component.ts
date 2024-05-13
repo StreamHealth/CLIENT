@@ -8,6 +8,8 @@ import { NgIf } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
 
 @Component({
     selector: 'app-login',
@@ -37,7 +39,8 @@ export class LoginComponent implements User {
 
     constructor(
         private routerService: Router,
-        private apiService: ApiService
+        private apiService: ApiService,
+        private dialog: MatDialog
     ) {
         this.name = '';
         this.username = '';
@@ -52,11 +55,27 @@ export class LoginComponent implements User {
                 .login(this.username, this.password)
                 .then(status => {
                     if (status === 200) {
-                        this.routerService.navigate(['/dashboard']);
+                        const dialogRef = this.dialog.open(
+                            MessageDialogComponent,
+                            {
+                                data: {
+                                    message: 'Login successful',
+                                    status: 'success',
+                                },
+                            }
+                        );
+                        dialogRef.afterClosed().subscribe(() => {
+                            this.routerService.navigate(['/dashboard']);
+                        });
                     }
                 })
                 .catch(err => {
-                    console.log('Error: ', err);
+                    this.dialog.open(MessageDialogComponent, {
+                        data: {
+                            message: 'Error: ' + err.message,
+                            status: 'error',
+                        },
+                    });
                 });
         } else {
             console.log('Form is invalid');

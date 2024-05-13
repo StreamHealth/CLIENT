@@ -80,15 +80,15 @@ export class ApiService {
     }
 
     async createProduct(product: any) {
-      try {
-        return this.axiosService
-          .request('POST', '/api/v1/product/add_product', product)
-          .then(response => {
-            return response.status;
-          });
-      } catch (err) {
-        return Promise.reject(err);
-      }
+        try {
+            return this.axiosService
+                .request('POST', '/api/v1/product/add_product', product)
+                .then(response => {
+                    return response.status;
+                });
+        } catch (err) {
+            return Promise.reject(err);
+        }
     }
 
     async deleteProduct(id: number) {
