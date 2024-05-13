@@ -11,6 +11,7 @@ import { PosContainerComponent } from '../../components/containers/pos-container
 import { ProductsContainerComponent } from '../../components/containers/products-container/products-container.component';
 import { SalesContainerComponent } from '../../components/containers/sales-container/sales-container.component';
 import { NgIf } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-dashboard',
@@ -37,7 +38,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     constructor(
         private axiosService: AxiosService,
         private routerService: Router,
-        private apiService: ApiService
+        private titleService: Title
     ) {
         this.selectedButton = '';
     }
@@ -65,19 +66,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         if (this.axiosService.getAuthToken() === null) {
             this.routerService.navigate(['/auth']);
         }
-
-        try {
-            this.apiService.getProfile().then(response => {
-                if (response.status === 200) {
-                    console.log('Profile: ', response.data);
-                }
-            });
-        } catch (err) {
-            console.log('Error: ', err);
-        }
     }
 
     ngOnInit() {
+        this.titleService.setTitle('Stream Health | Dashboard');
         const savedView = localStorage.getItem('selectedView');
         this.selectedButton = savedView ? savedView : 'profile';
         this.getAuthProfile();

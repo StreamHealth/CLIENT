@@ -38,9 +38,10 @@ body {
 
 .customField {
     @apply border-b border-pink-600 bg-transparent  p-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-pink-500;
-   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
-
 
 .customColorHeader {
     @apply bg-gradient-to-r from-pink-700 to-rose-500 bg-clip-text text-transparent;

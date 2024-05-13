@@ -60,7 +60,7 @@ export class ApiService {
         }
     }
 
-    async getAllProducts(search?: String) {
+    async getAllProducts(search?: String, pageNumber?: number) {
         if (!search) {
             search = '';
         }
@@ -68,7 +68,7 @@ export class ApiService {
             return this.axiosService
                 .request(
                     'GET',
-                    `/api/v1/product/get_products?search=${search}`,
+                    `/api/v1/product/get_products?search=${search}&page=${pageNumber}`,
                     {}
                 )
                 .then(response => {
