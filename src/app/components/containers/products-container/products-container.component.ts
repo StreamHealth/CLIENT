@@ -18,27 +18,29 @@ import { MatInput } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../../dialogs/delete-confirmation/delete-confirmation.component';
+import { CreateProductComponent } from '../../buttons/create-product/create-product.component';
 
 @Component({
     selector: 'app-products-container',
     standalone: true,
-    imports: [
-        MatTable,
-        MatColumnDef,
-        MatHeaderCellDef,
-        MatCellDef,
-        MatHeaderCell,
-        MatCell,
-        MatHeaderRow,
-        MatRow,
-        MatRowDef,
-        MatHeaderRowDef,
-        MatButton,
-        MatFormField,
-        MatInput,
-        MatLabel,
-        NgIf,
-    ],
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef,
+    MatButton,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    NgIf,
+    CreateProductComponent,
+  ],
     templateUrl: './products-container.component.html',
     styleUrl: './products-container.component.css',
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { LoginComponent } from '../../forms/login/login.component';
-import { RegisterComponent } from '../../forms/register/register.component';
+import { LoginComponent } from '../../components/forms/login/login.component';
+import { RegisterComponent } from '../../components/forms/register/register.component';
 
 @Component({
     selector: 'app-auth',

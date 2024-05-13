@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { User } from '../../models/user';
+import { User } from '../../../models/user';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
     selector: 'app-register',
