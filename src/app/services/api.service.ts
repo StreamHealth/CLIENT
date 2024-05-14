@@ -140,4 +140,16 @@ export class ApiService {
         return Promise.reject(err);
       }
     }
+
+    async updateSale(id:  number, sale: any) {
+      try {
+        return this.axiosService
+          .request('PUT', `/api/v1/transaction/update_transaction/${id}`, sale)
+          .then(response => {
+            return response.status;
+          });
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
 }
