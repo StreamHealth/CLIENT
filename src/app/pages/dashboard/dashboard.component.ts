@@ -9,7 +9,6 @@ import { MatIcon } from '@angular/material/icon';
 import { ProfileContainerComponent } from '../../components/containers/profile-container/profile-container.component';
 import { PosContainerComponent } from '../../components/containers/pos-container/pos-container.component';
 import { ProductsContainerComponent } from '../../components/containers/products-container/products-container.component';
-import { SalesContainerComponent } from '../../components/containers/sales-container/sales-container.component';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -24,7 +23,6 @@ import { NgIf } from '@angular/common';
         ProfileContainerComponent,
         PosContainerComponent,
         ProductsContainerComponent,
-        SalesContainerComponent,
         NgIf,
     ],
     templateUrl: './dashboard.component.html',
