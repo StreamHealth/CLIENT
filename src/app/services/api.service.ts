@@ -127,6 +127,17 @@ export class ApiService {
         } catch (err) {
           return Promise.reject(err);
         }
+    }
 
+    async  addSale(sale: any) {
+      try {
+        return this.axiosService
+          .request('POST', '/api/v1/transaction/add_transaction', sale)
+          .then(response => {
+            return response.status;
+          });
+      } catch (err) {
+        return Promise.reject(err);
+      }
     }
 }
