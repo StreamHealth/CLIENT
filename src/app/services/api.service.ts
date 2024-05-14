@@ -164,4 +164,16 @@ export class ApiService {
         return Promise.reject(err);
       }
     }
+
+    async getTransaction(id: number) {
+      try {
+        return this.axiosService
+          .request('GET', `/api/v1/transaction/get_transaction/${id}`, {})
+          .then(response => {
+            return response;
+          });
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
 }
