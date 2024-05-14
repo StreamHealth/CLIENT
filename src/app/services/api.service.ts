@@ -152,4 +152,16 @@ export class ApiService {
         return Promise.reject(err);
       }
     }
+
+    async deleteSale(id: number) {
+      try {
+        return this.axiosService
+          .request('DELETE', `/api/v1/transaction/delete_transaction/${id}`, {})
+          .then(response => {
+            return response.status;
+          });
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
 }
