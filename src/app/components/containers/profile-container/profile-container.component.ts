@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-profile-container',
@@ -11,12 +10,14 @@ import { Title } from '@angular/platform-browser';
 })
 export class ProfileContainerComponent {
     profileName: string = '';
+    totalSalesToday: string = '';
 
     constructor(private apiService: ApiService) {}
 
     getProfile() {
         this.apiService.getProfile().then(response => {
             this.profileName = response.data.name;
+           this.totalSalesToday = parseFloat(response.data.totalSalesToday).toFixed(2);
         });
     }
 

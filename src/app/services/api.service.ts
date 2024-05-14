@@ -51,7 +51,7 @@ export class ApiService {
     async getProfile() {
         try {
             return this.axiosService
-                .request('GET', '/api/v1/user/get_user', {})
+                .request('GET', '/api/v1/user/get_user_and_sales', {})
                 .then(response => {
                     return response;
                 });
