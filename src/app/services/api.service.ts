@@ -115,5 +115,18 @@ export class ApiService {
         }
     }
 
+  async getSales(filterByCashier?: boolean, searchId?: string, dateFilter?: string) {
+        try {
+          return this.axiosService
+            .request('GET', `/api/v1/transaction/get_transactions?filterByCashier=${filterByCashier}&transactionId=${searchId}&transactionDate=${dateFilter}`, {
 
+            })
+            .then(response =>{
+              return response;
+            })
+        } catch (err) {
+          return Promise.reject(err);
+        }
+
+    }
 }

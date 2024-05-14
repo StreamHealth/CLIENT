@@ -11,6 +11,9 @@ import { ApiService } from '../../../services/api.service';
 export class ProfileContainerComponent {
     profileName: string = '';
     totalSalesToday: string = '';
+    filterByCashier: boolean = false;
+    filterByDate: string = '';
+    searchId: string = ''
 
     constructor(private apiService: ApiService) {}
 
@@ -21,7 +24,14 @@ export class ProfileContainerComponent {
         });
     }
 
+    getSales() {
+      this.apiService.getSales(this.filterByCashier, this.searchId, this.filterByDate).then(response => {
+        console.log(response.data);
+      })
+    }
+
     ngOnInit() {
         this.getProfile();
+        this.getSales();
     }
 }
