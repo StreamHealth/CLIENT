@@ -115,65 +115,79 @@ export class ApiService {
         }
     }
 
-  async getSales(filterByCashier?: boolean, searchId?: string, dateFilter?: string) {
+    async getSales(
+        filterByCashier?: boolean,
+        searchId?: string,
+        dateFilter?: string
+    ) {
         try {
-          return this.axiosService
-            .request('GET', `/api/v1/transaction/get_transactions?filterByCashier=${filterByCashier}&transactionId=${searchId}&transactionDate=${dateFilter}`, {
-
-            })
-            .then(response =>{
-              return response;
-            })
+            return this.axiosService
+                .request(
+                    'GET',
+                    `/api/v1/transaction/get_transactions?filterByCashier=${filterByCashier}&transactionId=${searchId}&transactionDate=${dateFilter}`,
+                    {}
+                )
+                .then(response => {
+                    return response;
+                });
         } catch (err) {
-          return Promise.reject(err);
+            return Promise.reject(err);
         }
     }
 
-    async  addSale(sale: any) {
-      try {
-        return this.axiosService
-          .request('POST', '/api/v1/transaction/add_transaction', sale)
-          .then(response => {
-            return response.status;
-          });
-      } catch (err) {
-        return Promise.reject(err);
-      }
+    async addSale(sale: any) {
+        try {
+            return this.axiosService
+                .request('POST', '/api/v1/transaction/add_transaction', sale)
+                .then(response => {
+                    return response.status;
+                });
+        } catch (err) {
+            return Promise.reject(err);
+        }
     }
 
-    async updateSale(id:  number, sale: any) {
-      try {
-        return this.axiosService
-          .request('PUT', `/api/v1/transaction/update_transaction/${id}`, sale)
-          .then(response => {
-            return response.status;
-          });
-      } catch (err) {
-        return Promise.reject(err);
-      }
+    async updateSale(id: number, sale: any) {
+        try {
+            return this.axiosService
+                .request(
+                    'PUT',
+                    `/api/v1/transaction/update_transaction/${id}`,
+                    sale
+                )
+                .then(response => {
+                    return response.status;
+                });
+        } catch (err) {
+            return Promise.reject(err);
+        }
     }
 
     async deleteSale(id: number) {
-      try {
-        return this.axiosService
-          .request('DELETE', `/api/v1/transaction/delete_transaction/${id}`, {})
-          .then(response => {
-            return response.status;
-          });
-      } catch (err) {
-        return Promise.reject(err);
-      }
+        try {
+            return this.axiosService
+                .request(
+                    'DELETE',
+                    `/api/v1/transaction/delete_transaction/${id}`,
+                    {}
+                )
+                .then(response => {
+                    return response.status;
+                });
+        } catch (err) {
+            return Promise.reject(err);
+        }
     }
 
     async getTransaction(id: number) {
-      try {
-        return this.axiosService
-          .request('GET', `/api/v1/transaction/get_transaction/${id}`, {})
-          .then(response => {
-            return response;
-          });
-      } catch (err) {
-        return Promise.reject(err);
-      }
+        try {
+            return this.axiosService
+                .request('GET', `/api/v1/transaction/get_transaction/${id}`, {})
+                .then(response => {
+                    return response;
+                });
+        } catch (err) {
+            return Promise.reject(err);
+        }
     }
 }
