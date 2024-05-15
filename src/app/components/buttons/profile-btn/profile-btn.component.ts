@@ -13,7 +13,7 @@ import { MatButton } from '@angular/material/button';
 })
 export class ProfileBtnComponent {
     dropdownOpen = false;
-    username = 'John Doe';
+    username = '';
 
     constructor(
         private apiService: ApiService,
