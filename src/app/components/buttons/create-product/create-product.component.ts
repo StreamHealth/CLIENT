@@ -13,7 +13,7 @@ import { MatIcon } from '@angular/material/icon';
     styleUrl: './create-product.component.css',
 })
 export class CreateProductComponent implements OnInit {
-  @Output() productCreated: EventEmitter<void> = new EventEmitter<void>();
+    @Output() productCreated: EventEmitter<void> = new EventEmitter<void>();
     productForm: FormGroup;
 
     constructor(

@@ -15,7 +15,7 @@ import {
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../../dialogs/delete-confirmation/delete-confirmation.component';
 import { CreateProductComponent } from '../../buttons/create-product/create-product.component';
@@ -27,26 +27,28 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
     selector: 'app-products-container',
     standalone: true,
-  imports: [
-    MatTable,
-    MatColumnDef,
-    MatHeaderCellDef,
-    MatCellDef,
-    MatHeaderCell,
-    MatCell,
-    MatHeaderRow,
-    MatRow,
-    MatRowDef,
-    MatHeaderRowDef,
-    MatButton,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    NgIf,
-    CreateProductComponent,
-    MatIcon,
-    MatIconButton,
-  ],
+    imports: [
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatCellDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderRow,
+        MatRow,
+        MatRowDef,
+        MatHeaderRowDef,
+        MatButton,
+        MatFormField,
+        MatInput,
+        MatLabel,
+        NgIf,
+        CreateProductComponent,
+        MatIcon,
+        MatIconButton,
+        NgForOf,
+        NgClass,
+    ],
     templateUrl: './products-container.component.html',
     styleUrl: './products-container.component.css',
 })
@@ -58,6 +60,7 @@ export class ProductsContainerComponent {
     totalElements: number = 0;
     totalPages: number = 0;
     isLastPage: boolean = false;
+    pages: number[] = [];
 
     displayedColumns: string[] = [
         'productName',
@@ -82,6 +85,10 @@ export class ProductsContainerComponent {
             this.totalPages = data.totalPages;
             this.isLastPage = data.last;
             this.dataSource = this.allData;
+            this.pages = Array.from(
+                { length: Math.min(5, this.totalPages) },
+                (_, i) => i + 1
+            );
             this.changeDetectorRefs.detectChanges();
         });
     }
@@ -155,7 +162,12 @@ export class ProductsContainerComponent {
 
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
-        this.page = 1; // Reset the page number
+        this.page = 1;
         this.fetchProducts(filterValue, this.page);
+    }
+
+    goToPage(pageNumber: number) {
+        this.page = pageNumber;
+        this.fetchProducts('', this.page);
     }
 }
