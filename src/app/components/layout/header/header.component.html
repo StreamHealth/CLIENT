@@ -1,13 +1,13 @@
 <nav
-    class="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b-2 bg-transparent px-10 backdrop-blur">
+    class=" bg-white sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b-2 bg-transparent px-10 backdrop-blur">
+  <a href="/">
     <h1
-        class="bg-gradient-to-r from-pink-700 to-rose-500 bg-clip-text text-xl font-semibold text-transparent">
-        Stream Health
+      class="bg-gradient-to-r from-pink-700 to-rose-500 bg-clip-text text-xl font-semibold text-transparent">
+      <img src="./assets/streamhealth-logo.png" alt="brandLogo" class="h-[30px]"/>
     </h1>
+  </a>
+
     <div class="flex items-center justify-center gap-4">
-        <div *ngFor="let link of links" class="flex gap-2">
-            <a [routerLink]="link.path">{{ link.name }}</a>
-        </div>
         <div *ngIf="loggedIn; else notLoggedIn">
             <app-profile-btn />
         </div>

@@ -6,18 +6,20 @@ import { MatButton } from '@angular/material/button';
 import { ApiService } from '../../../services/api.service';
 import { AxiosService } from '../../../services/axios.service';
 import { ProfileBtnComponent } from '../../buttons/profile-btn/profile-btn.component';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [
-        DashboardBtnComponent,
-        RouterLink,
-        NgForOf,
-        NgIf,
-        MatButton,
-        ProfileBtnComponent,
-    ],
+  imports: [
+    DashboardBtnComponent,
+    RouterLink,
+    NgForOf,
+    NgIf,
+    MatButton,
+    ProfileBtnComponent,
+    MatIcon,
+  ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
 })

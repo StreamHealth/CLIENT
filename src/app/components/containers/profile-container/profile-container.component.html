@@ -1,11 +1,33 @@
-<div class="flex h-full w-full items-center justify-center">
+<div class="flex h-full w-full items-center justify-center flex-col px-20 py-8 gap-4">
     <div
-        class="flex w-full items-center justify-between gap-5 place-self-start px-20 py-10">
+        class="flex w-full items-center justify-between gap-5 place-self-start p-4 border-2 border-pink-600 rounded-2xl">
         <h2 class="customColorHeader text-[2rem] font-semibold">
             Welcome back! {{ profileName }}
         </h2>
         <h2 class="customColorHeader text-[1.5rem] font-semibold">
-            Total Sales Today: {{ totalSalesToday }}
+            Total Sales Today: {{ totalSalesToday }} Php
         </h2>
     </div>
+  <div class="flex w-[98%] h-full mt-6 flex-col gap-4">
+    <h2 class="font-semibold text-2xl">Transactions</h2>
+    <div class="w-full flex gap-4 items-center">
+      <mat-slide-toggle [(ngModel)]="filterByCashier" >View your transactions</mat-slide-toggle>
+      <label for="search"></label>
+      <input
+        class="customField"
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Search by Transaction Id"
+        (keyup)="applyFilter($event)" />
+    <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="filterByDate" >
+      <mat-hint>YYYY/DD/MM</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+      <button mat-flat-button color="accent">Reset</button>
+    </div>
+  </div>
 </div>

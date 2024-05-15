@@ -54,3 +54,10 @@ body {
 .customBtnColor {
     @apply bg-gradient-to-r from-pink-700 to-rose-500  text-white;
 }
+
+.primary {
+  background:  rgba(190, 24, 93, 1);
+}
+.secondary {
+  background: rgba(244, 67, 54, 1);
+}
