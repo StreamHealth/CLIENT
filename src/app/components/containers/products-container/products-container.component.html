@@ -1,7 +1,7 @@
 <div class="flex h-full w-full items-center justify-center">
     <div class="flex w-[100rem] flex-col gap-4">
         <div class="flex w-full items-center justify-between gap-4">
-            <app-create-product />
+            <app-create-product (productCreated)="fetchProducts()" />
             <div class="w-full">
                 <label for="search"></label>
                 <input

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatIconButton, MatMiniFabButton } from '@angular/material/button';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CreateProductComponent as CreateProductFormComponent } from '../../forms/create-product/create-product.component';
@@ -13,6 +13,7 @@ import { MatIcon } from '@angular/material/icon';
     styleUrl: './create-product.component.css',
 })
 export class CreateProductComponent implements OnInit {
+  @Output() productCreated: EventEmitter<void> = new EventEmitter<void>();
     productForm: FormGroup;
 
     constructor(
@@ -30,7 +31,7 @@ export class CreateProductComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
+            this.productCreated.emit();
         });
     }
 }
