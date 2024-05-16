@@ -24,6 +24,8 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { DeleteConfirmationComponent } from '../../dialogs/delete-confirmation/delete-confirmation.component';
 import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
+import { Transaction } from '../../../models/transaction';
+import { UpdateTransactionComponent } from '../../forms/update-transaction/update-transaction.component';
 
 @Component({
     selector: 'app-profile-container',
@@ -124,6 +126,7 @@ export class ProfileContainerComponent {
                 this.dataSource = data.content;
                 this.totalPages = data.totalPages;
                 this.isLastPage = data.last;
+                console.log(this.dataSource);
                 this.pages = Array.from(
                     { length: this.totalPages },
                     (_, i) => i + 1
@@ -184,6 +187,25 @@ export class ProfileContainerComponent {
       this.page--;
       this.fetchTransactions(this.filterByCashier, this.page);
     }
+  }
+
+  updateTransaction(transaction: Transaction) {
+      const  dialogRef = this.dialog.open(UpdateTransactionComponent, {
+        width: '800px',
+        data: transaction,
+      });
+
+      dialogRef.componentInstance.transactionUpdate.subscribe(() => {
+        this.page = 1;
+        this.fetchTransactions(this.filterByCashier, this.page);
+      });
+
+      dialogRef.afterClosed().subscribe(response => {
+        if (response) {
+          this.page = 1;
+          this.fetchTransactions(this.filterByCashier, this.page);
+        }
+      });
   }
 
     deleteTransaction(id: number) {
