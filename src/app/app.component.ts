@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AxiosService } from './services/axios.service';
 import { Title } from '@angular/platform-browser';
@@ -10,6 +10,7 @@ import { MasterComponent } from './layout/master/master.component';
     imports: [RouterOutlet, MasterComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent {
     title = 'Stream Health';
