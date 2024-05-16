@@ -2,19 +2,16 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-hero',
-  standalone: true,
-  imports: [],
-  templateUrl: './hero.component.html',
-  styleUrl: './hero.component.css'
+    selector: 'app-hero',
+    standalone: true,
+    imports: [],
+    templateUrl: './hero.component.html',
+    styleUrl: './hero.component.css',
 })
 export class HeroComponent {
-  constructor(
-    private router: Router
-  ) {
-  }
+    constructor(private router: Router) {}
 
-  redirectToAuth() {
-    this.router.navigate(['/auth']);
-  }
+    redirectToAuth() {
+        this.router.navigate(['/auth']);
+    }
 }

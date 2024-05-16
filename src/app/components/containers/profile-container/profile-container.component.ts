@@ -1,13 +1,29 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { FormsModule } from '@angular/forms';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-import { MatButton } from '@angular/material/button';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MAT_DATE_FORMATS, provideNativeDateAdapter } from '@angular/material/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+} from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
+import { DeleteConfirmationComponent } from '../../dialogs/delete-confirmation/delete-confirmation.component';
+import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
 
 @Component({
     selector: 'app-profile-container',
@@ -15,33 +31,77 @@ import { MatButton } from '@angular/material/button';
   imports: [
     MatSlideToggle,
     FormsModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatButton,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButton,
+    NgIf,
+    MatTable,
+    MatHeaderCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    NgForOf,
+    MatIcon,
+    MatIconButton,
+    DatePipe,
+    NgClass,
   ],
-  providers: [
-    provideNativeDateAdapter(),
-    { provide: MAT_DATE_FORMATS, useValue: {
-        parse: {
-          dateInput: 'YYYY-MM-DD',
+    providers: [
+        provideNativeDateAdapter(),
+        {
+            provide: MAT_DATE_FORMATS,
+            useValue: {
+                parse: {
+                    dateInput: 'YYYY-MM-DD',
+                },
+                display: {
+                    dateInput: 'YYYY-MM-DD',
+                    monthYearLabel: 'MMM YYYY',
+                    dateA11yLabel: 'LL',
+                    monthYearA11yLabel: 'MMMM YYYY',
+                },
+            },
         },
-        display: {
-          dateInput: 'YYYY-MM-DD',
-          monthYearLabel: 'MMM YYYY',
-          dateA11yLabel: 'LL',
-          monthYearA11yLabel: 'MMMM YYYY',
-        },
-      }}
-  ],
+    ],
     templateUrl: './profile-container.component.html',
     styleUrl: './profile-container.component.css',
 })
 export class ProfileContainerComponent {
+    dataSource: any = [];
+    page: number = 1;
+    totalPages: number = 0;
+    isLastPage: boolean = false;
+    pages: number[] = [];
     profileName: string = '';
     totalSalesToday: string = '';
     filterByCashier: boolean = false;
     filterByDate: string = '';
     searchId: string = '';
 
-    constructor(private apiService: ApiService) {}
+    displayedColumns: string[] = [
+        'transactionId',
+        'clientName',
+        'products',
+        'transactionDate',
+        'paymentMethod',
+        'totalAmount',
+        'discountType',
+        'discountPercentage',
+        'cashier',
+        'action',
+    ];
+
+    constructor(
+        private apiService: ApiService,
+        private changeDetectorRef: ChangeDetectorRef,
+        public dialog: MatDialog
+    ) {}
 
     getProfile() {
         this.apiService.getProfile().then(response => {
@@ -52,29 +112,111 @@ export class ProfileContainerComponent {
         });
     }
 
-    getSales() {
+    fetchTransactions(
+        filterByCashier: boolean = this.filterByCashier,
+        page: number = this.page,
+        searchId: string = '',
+        dateFilter: string = ''
+    ) {
         this.apiService
-            .getSales(this.filterByCashier, this.searchId, this.filterByDate)
-            .then(response => {
-                console.log(response.data);
+            .getSales(filterByCashier, searchId, dateFilter, page - 1)
+            .then(data => {
+                this.dataSource = data.content;
+                this.totalPages = data.totalPages;
+                this.isLastPage = data.last;
+                this.pages = Array.from(
+                    { length: this.totalPages },
+                    (_, i) => i + 1
+                );
+                this.changeDetectorRef.detectChanges();
             });
     }
 
     ngOnInit() {
         this.getProfile();
-        this.getSales();
+        this.fetchTransactions();
     }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    const datePattern = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD
-
-    if (!this.filterByDate.match(datePattern)) {
-      console.log(this.filterByDate)
-      console.error('Date is not in the correct format');
-      return;
+    searchFilter(event: Event) {
+       const searchId = (event.target as HTMLInputElement).value;
+       this.page = 1;
+       this.fetchTransactions(this.filterByCashier, this.page, searchId);
     }
 
-    console.log(filterValue);
+    applyFilterByCashier(value: boolean) {
+        this.filterByCashier = value;
+        this.page = 1;
+        this.fetchTransactions(this.filterByCashier, this.page);
+    }
+
+  applyFilterDate(event: MatDatepickerInputEvent<Date>) {
+    if (event.value) {
+      let date = event.value;
+      let utcDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      this.filterByDate = utcDate.toISOString().split('T')[0];
+      this.page = 1;
+      this.fetchTransactions(this.filterByCashier, this.page, '', this.filterByDate);
+    } else {
+      console.log('Date is null');
+    }
   }
+
+    resetFilters() {
+        this.filterByCashier = false;
+        this.filterByDate = '';
+        this.searchId = '';
+    }
+
+  nextPage() {
+    if (!this.isLastPage) {
+      this.page++;
+      this.fetchTransactions(this.filterByCashier, this.page);
+    }
+  }
+
+  goToPage(pageNumber: number) {
+    this.page = pageNumber;
+    this.fetchTransactions(this.filterByCashier, this.page);
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.fetchTransactions(this.filterByCashier, this.page);
+    }
+  }
+
+    deleteTransaction(id: number) {
+        const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+            width: '450px',
+            height: '200px',
+            data: { name: 'Transaction ' + id, title: 'Delete Transaction' },
+        });
+
+        dialogRef.afterClosed().subscribe(response => {
+            if (response) {
+                this.apiService
+                  .deleteSale(id)
+                    .then(() => {
+                        this.page = 1;
+                        this.fetchTransactions(this.filterByCashier, this.page);
+                        this.dialog.open(MessageDialogComponent, {
+                            data: {
+                                message: 'Product deleted successfully',
+                                status: 'success',
+                            },
+                        });
+                    })
+                    .catch(err => {
+                        this.dialog.open(MessageDialogComponent, {
+                            data: {
+                                message:
+                                    'Error deleting product: ' + err.message,
+                                status: 'error',
+                            },
+                        });
+                    });
+            }
+        });
+    }
 }

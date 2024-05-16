@@ -7,14 +7,13 @@ import { TeamComponent } from '../../components/layout/team/team.component';
 @Component({
     selector: 'app-home',
     standalone: true,
-  imports: [
-    HeroComponent,
-    FooterComponent,
-    WhatWeOfferComponent,
-    TeamComponent,
-  ],
+    imports: [
+        HeroComponent,
+        FooterComponent,
+        WhatWeOfferComponent,
+        TeamComponent,
+    ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
-export class HomeComponent {
-}
+export class HomeComponent {}

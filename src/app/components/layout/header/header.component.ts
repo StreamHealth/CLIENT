@@ -11,15 +11,15 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
     selector: 'app-header',
     standalone: true,
-  imports: [
-    DashboardBtnComponent,
-    RouterLink,
-    NgForOf,
-    NgIf,
-    MatButton,
-    ProfileBtnComponent,
-    MatIcon,
-  ],
+    imports: [
+        DashboardBtnComponent,
+        RouterLink,
+        NgForOf,
+        NgIf,
+        MatButton,
+        ProfileBtnComponent,
+        MatIcon,
+    ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
 })

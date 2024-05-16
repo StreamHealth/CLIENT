@@ -118,17 +118,18 @@ export class ApiService {
     async getSales(
         filterByCashier?: boolean,
         searchId?: string,
-        dateFilter?: string
+        dateFilter?: string,
+        pageNumber?: number
     ) {
         try {
             return this.axiosService
                 .request(
                     'GET',
-                    `/api/v1/transaction/get_transactions?filterByCashier=${filterByCashier}&transactionId=${searchId}&transactionDate=${dateFilter}`,
+                    `/api/v1/transaction/get_transactions?filterByCashier=${filterByCashier}&transactionId=${searchId}&transactionDate=${dateFilter}&page=${pageNumber}`,
                     {}
                 )
                 .then(response => {
-                    return response;
+                    return response.data;
                 });
         } catch (err) {
             return Promise.reject(err);

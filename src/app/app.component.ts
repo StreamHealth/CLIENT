@@ -10,7 +10,7 @@ import { MasterComponent } from './layout/master/master.component';
     imports: [RouterOutlet, MasterComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {
     title = 'Stream Health';

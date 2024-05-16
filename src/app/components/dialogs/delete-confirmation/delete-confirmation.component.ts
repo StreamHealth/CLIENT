@@ -11,6 +11,7 @@ import { MatButton } from '@angular/material/button';
 
 export interface DialogData {
     name: string;
+    title: string;
 }
 
 @Component({

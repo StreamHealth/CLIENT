@@ -53,7 +53,6 @@ import { MatIcon } from '@angular/material/icon';
     styleUrl: './products-container.component.css',
 })
 export class ProductsContainerComponent {
-    allData: any = [];
     dataSource: any = [];
     page: number = 1;
     pageSize: number = 5;
@@ -81,10 +80,9 @@ export class ProductsContainerComponent {
 
     fetchProducts(searchValue: string = '', page: number = this.page) {
         this.apiService.getAllProducts(searchValue, page - 1).then(data => {
-            this.allData = data.content;
             this.totalPages = data.totalPages;
             this.isLastPage = data.last;
-            this.dataSource = this.allData;
+            this.dataSource = data.content;
             this.pages = Array.from(
                 { length: Math.min(5, this.totalPages) },
                 (_, i) => i + 1
@@ -130,7 +128,7 @@ export class ProductsContainerComponent {
         const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
             width: '450px',
             height: '200px',
-            data: { name: 'Product ' + name },
+            data: { name: 'Product ' + name, title: 'Delete Product' },
         });
 
         dialogRef.afterClosed().subscribe(response => {
