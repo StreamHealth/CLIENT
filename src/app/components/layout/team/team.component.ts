@@ -28,9 +28,9 @@ export class TeamComponent {
     },
     {
       name: 'Marie Cris Edusma',
-      imgUrl: '../assets/members/masofia.png',
-      profession: 'Frontend Developer',
-      imgHeight: '47.5%'
+      imgUrl: '../assets/members/mariecris.png',
+      profession: 'UI/UX Designer',
+      imgHeight: '58.5%'
     },
     {
       name: 'Rafael Louie Miguel',imgUrl: '../assets/members/migs.png',
@@ -39,9 +39,9 @@ export class TeamComponent {
     },
     {
       name: 'Vivien Nombre',
-      imgUrl: '../assets/members/masofia.png',
-      profession: 'Frontend Developer',
-      imgHeight: '47.5%'
+      imgUrl: '../assets/members/vivien.png',
+      profession: 'Researcher',
+      imgHeight: '79.5%'
     }
   ];
 
