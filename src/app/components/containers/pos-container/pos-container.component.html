@@ -1,1 +1,71 @@
-<p>pos-container works!</p>
+<main class="w-full min-h-screen grid grid-cols-2" style="grid-template-columns: 2fr 1fr;">
+  <div class="flex flex-col px-10 py-8 gap-8">
+    <div class="w-full">
+      <label for="search"></label>
+      <input
+        class="customField w-full"
+        type="text"
+        name="search"
+        id="search"
+        placeholder="Search by Product Name"
+        (keyup)="applyFilter($event)" />
+
+      <div class="w-full h-auto  mt-4 overflow-y-scroll flex flex-col gap-6" >
+          <div *ngFor="let product of products" class="w-full h-auto border-2 p-4 border-pink-600 flex shadow-md rounded-lg justify-center items-center">
+            <div class="flex justify-between w-full border-r-2">
+              <div>
+              <h2 class="customColorHeader font-semibold text-xl">{{ product.productName }}</h2>
+              <p>{{ product.productDescription }}</p>
+              </div>
+              <div class="px-4">
+                <p>Php {{product.productPrice}}</p>
+                <p>Stock: {{product.productStock}}</p>
+              </div>
+            </div>
+            <div class="flex items-center px-4 justify-center">
+              <button mat-button [mat-dialog-close]="quantityControl.value" cdkFocusInitial>Add </button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-pink-600 border-l-2 px-10 py-4 flex flex-col gap-3">
+      <div class="border-2 w-full h-[5rem] border-pink-600 rounded-2xl px-4 flex items-center py-2 justify-between">
+          <p class="font-semibold customColorHeader text-3xl">Total: </p>
+           <h3 class="text-[3rem]">{{ totalAmount }}</h3>
+      </div>
+    <div class="flex justify-center items-center gap-3">
+      <label for="clientName"></label>
+      <input id="clientName" placeholder="Client Name" class="customField">
+      <mat-form-field class="h-[5.3rem]">
+        <mat-label>Payment Method</mat-label>
+        <select matNativeControl required>
+          <option value="CARD">Card</option>
+          <option value="CASH">Cash</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field class="h-[5.3rem]">
+        <mat-label>Discount</mat-label>
+        <select matNativeControl required class>
+          <option value="None">None</option>
+          <option value="STUDENT">Student</option>
+          <option value="PWD">PWD</option>
+          <option value="SENIOR">Senior</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="w-full h-[35rem] overflow-y-scroll border-2">
+      <div  *ngFor="let cartItem of cartItems">
+        {{ cartItem.product.productName}}
+        {{ cartItem.product.productPrice}}
+        {{ cartItem.quantity}}
+        {{ cartItem.totalPrice}}
+      </div>
+
+    </div>
+    <div class="flex justify-end items-center gap-3 w-full">
+      <button mat-button>Cancel</button>
+      <button mat-flat-button color="accent">Checkout</button>
+    </div>
+  </div>
+</main>
