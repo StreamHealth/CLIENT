@@ -26,6 +26,7 @@ import { DeleteConfirmationComponent } from '../../dialogs/delete-confirmation/d
 import { MessageDialogComponent } from '../../dialogs/message-dialog/message-dialog.component';
 import { Transaction } from '../../../models/transaction';
 import { UpdateTransactionComponent } from '../../forms/update-transaction/update-transaction.component';
+import { PrintTransactionComponent } from '../../dialogs/print-transaction/print-transaction.component';
 
 @Component({
     selector: 'app-profile-container',
@@ -168,6 +169,7 @@ export class ProfileContainerComponent {
         this.filterByCashier = false;
         this.filterByDate = '';
         this.searchId = '';
+        this.fetchTransactions(false, 1, '', '');
     }
 
   nextPage() {
@@ -239,6 +241,18 @@ export class ProfileContainerComponent {
                         });
                     });
             }
+        });
+    }
+
+    printTransaction(transactionId: number) {
+        this.apiService.getSale(transactionId).then(response => {
+          console.log(response);
+          this.dialog.open(PrintTransactionComponent, {
+            data: {
+              width: '800px',
+              transaction: response
+            }
+          });
         });
     }
 }

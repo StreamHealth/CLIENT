@@ -180,12 +180,12 @@ export class ApiService {
         }
     }
 
-    async getTransaction(id: number) {
+    async getSale(id: number) {
         try {
             return this.axiosService
                 .request('GET', `/api/v1/transaction/get_transaction/${id}`, {})
                 .then(response => {
-                    return response;
+                    return response.data;
                 });
         } catch (err) {
             return Promise.reject(err);
