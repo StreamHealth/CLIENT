@@ -23,9 +23,44 @@
               </div>
             </div>
             <div class="flex items-center px-4 justify-center">
-              <button mat-button [mat-dialog-close]="quantityControl.value" cdkFocusInitial>Add </button>
+              <button mat-flat-button color="accent" cdkFocusInitial> Add </button>
             </div>
           </div>
+      </div>
+    </div>
+    <div
+      *ngIf="products.length === 0"
+      class="flex h-auto w-full items-center justify-center bg-white">
+      <h2 class="text-2xl">No Products found!</h2>
+    </div>
+    <div class="flex w-full items-center justify-between">
+      <span></span>
+      <div class="flex items-center justify-center gap-2">
+        <button
+          *ngFor="let pageNumber of pages"
+          [ngClass]="{
+                        'bg-pink-200 text-pink-500': pageNumber === page
+                    }"
+          (click)="goToPage(pageNumber)"
+          class="rounded-md px-4">
+          {{ pageNumber }}
+        </button>
+      </div>
+      <div class="flex items-center justify-end gap-2">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="previousPage()"
+          [disabled]="page === 1">
+          Previous
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="nextPage()"
+          [disabled]="isLastPage">
+          Next
+        </button>
       </div>
     </div>
   </div>

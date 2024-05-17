@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { NgForOf } from '@angular/common';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -17,6 +17,8 @@ import { QuantityDialogComponent } from '../../dialogs/quantity-dialog/quantity-
     MatInput,
     MatLabel,
     MatDialogClose,
+    NgIf,
+    NgClass,
   ],
     templateUrl: './pos-container.component.html',
     styleUrl: './pos-container.component.css',
@@ -87,7 +89,25 @@ export class PosContainerComponent  {
         console.log(this.cartItems);
       }
     });
+  }
 
+  nextPage() {
+    if (!this.isLastPage) {
+      this.page++;
+      this.fetchProducts( '',this.page);
+    }
+  }
+
+  goToPage(pageNumber: number) {
+    this.page = pageNumber;
+    this.fetchProducts('', this.page);
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.fetchProducts('', this.page);
+    }
   }
 
 }
